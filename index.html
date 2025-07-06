@@ -1,0 +1,306 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>奇迹MU加点模拟器</title>
+    <style>
+        body {
+            font-family: 'Microsoft YaHei', sans-serif;
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 20px;
+            background: linear-gradient(135deg, #f7fafc 0%, #edf2f7 25%, #e2e8f0 50%, #f1f5f9 100%);
+            background-attachment: fixed;
+            color: #333;
+            min-height: 100vh;
+        }
+        .container {
+            background: white;
+            border-radius: 15px;
+            padding: 30px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+            animation: fadeInUp 0.6s ease-out;
+        }
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        h1 {
+            color: #2c3e50;
+            text-align: center;
+            margin-bottom: 30px;
+            font-size: 2.5em;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.1);
+        }
+        h2 {
+            color: #34495e;
+            text-align: center;
+            margin-bottom: 20px;
+        }
+        .class-selector {
+            margin-bottom: 30px;
+            text-align: center;
+        }
+        .class-buttons {
+            display: flex;
+            gap: 15px;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+        .class-btn {
+            padding: 12px 20px;
+            border: 2px solid #3498db;
+            background: white;
+            color: #3498db;
+            border-radius: 25px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-weight: bold;
+            font-size: 16px;
+            min-width: 100px;
+            max-width: 150px;
+        }
+        .class-btn:hover {
+            background: #3498db;
+            color: white;
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(52, 152, 219, 0.3);
+        }
+        .class-btn.active {
+            background: #3498db;
+            color: white;
+            box-shadow: 0 5px 15px rgba(52, 152, 219, 0.3);
+        }
+        .input-group {
+            margin-bottom: 25px;
+            padding: 20px;
+            background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+            border-radius: 12px;
+            border-left: 5px solid #3498db;
+            transition: all 0.3s ease;
+        }
+        .input-group:hover {
+            transform: translateX(5px);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+        label {
+            display: block;
+            margin-bottom: 10px;
+            font-weight: bold;
+            color: #2c3e50;
+            font-size: 1.1em;
+        }
+        input[type="number"] {
+            width: 100%;
+            padding: 12px;
+            border: 2px solid #ddd;
+            border-radius: 8px;
+            font-size: 16px;
+            box-sizing: border-box;
+            transition: border-color 0.3s ease;
+        }
+        input[type="number"]:focus {
+            border-color: #3498db;
+            outline: none;
+            box-shadow: 0 0 10px rgba(52, 152, 219, 0.2);
+        }
+        .slider-container {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+        input[type="range"] {
+            flex-grow: 1;
+            height: 8px;
+            border-radius: 4px;
+            background: #ddd;
+            outline: none;
+            -webkit-appearance: none;
+        }
+        input[type="range"]::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            appearance: none;
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            background: #3498db;
+            cursor: pointer;
+            box-shadow: 0 2px 6px rgba(0,0,0,0.2);
+            transition: all 0.3s ease;
+        }
+        input[type="range"]::-webkit-slider-thumb:hover {
+            background: #2980b9;
+            transform: scale(1.1);
+        }
+        .attribute-value {
+            min-width: 80px;
+            font-weight: bold;
+            text-align: center;
+            background: #3498db;
+            color: white;
+            padding: 8px 12px;
+            border-radius: 20px;
+            font-size: 14px;
+        }
+        .results {
+            background: linear-gradient(135deg, #e8f4fc 0%, #d6eaf8 100%);
+            padding: 25px;
+            border-radius: 12px;
+            margin-top: 30px;
+            border-left: 5px solid #3498db;
+            animation: slideInRight 0.6s ease-out;
+        }
+        @keyframes slideInRight {
+            from {
+                opacity: 0;
+                transform: translateX(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+        .result-item {
+            margin: 15px 0;
+            padding: 15px;
+            background: white;
+            border-radius: 8px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+            transition: all 0.3s ease;
+        }
+        .result-item:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.15);
+        }
+        .result-value {
+            font-weight: bold;
+            color: #e74c3c;
+            font-size: 1.3em;
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.1);
+        }
+        button {
+            display: block;
+            width: 100%;
+            padding: 15px;
+            background: linear-gradient(135deg, #3498db 0%, #2980b9 100%);
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-size: 18px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            margin-top: 25px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+        button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(52, 152, 219, 0.3);
+            background: linear-gradient(135deg, #2980b9 0%, #3498db 100%);
+        }
+        button:active {
+            transform: translateY(0);
+        }
+        .formula {
+            background: #f8f9fa;
+            padding: 20px;
+            border-radius: 8px;
+            font-family: 'Courier New', monospace;
+            margin-top: 20px;
+            font-size: 14px;
+            border: 2px dashed #bdc3c7;
+            line-height: 1.6;
+        }
+        @media (max-width: 768px) {
+            .class-buttons {
+                flex-direction: column;
+                align-items: center;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🗡️ 奇迹MU加点模拟器 🧙‍♂️</h1>
+        
+        <div class="class-selector">
+            <h2>选择职业</h2>
+            <div class="class-buttons">
+                <button class="class-btn active" data-class="warrior">⚔️ 战士</button>
+                <button class="class-btn" data-class="wizard">🧙‍♂️ 圣导师</button>
+            </div>
+        </div>
+        
+        <div class="input-group">
+            <label for="baseAttack">🗡️ 基础攻击力:</label>
+            <input type="number" id="baseAttack" min="0" value="100">
+        </div>
+        
+        <div class="input-group">
+            <label for="baseBonusPercent">📈 基础攻击加成百分比(%):</label>
+            <input type="number" id="baseBonusPercent" min="0" value="200">
+        </div>
+        
+        <div class="input-group">
+            <label for="totalPoints">🎯 可用属性点数:</label>
+            <input type="number" id="totalPoints" min="0" value="1000">
+        </div>
+        
+        <div class="input-group">
+            <label>💪 力量点数:</label>
+            <div class="slider-container">
+                <input type="range" id="strengthSlider" min="0" value="500">
+                <span id="strengthValue" class="attribute-value">500</span>
+            </div>
+        </div>
+        
+        <div class="input-group">
+            <label>🧠 智力点数:</label>
+            <div class="slider-container">
+                <input type="range" id="intelligenceSlider" min="0" value="500">
+                <span id="intelligenceValue" class="attribute-value">500</span>
+            </div>
+        </div>
+        
+        <button id="calculateOptimal">🚀 计算最优分配</button>
+        
+        <div class="results">
+            <h2>📊 计算结果</h2>
+            <div class="result-item">
+                <span>当前攻击力:</span>
+                <span id="currentAttack" class="result-value">0</span>
+            </div>
+            <div class="result-item">
+                <span>最优力量点数:</span>
+                <span id="optimalStrength" class="result-value">-</span>
+            </div>
+            <div class="result-item">
+                <span>最优智力点数:</span>
+                <span id="optimalIntelligence" class="result-value">-</span>
+            </div>
+            <div class="result-item">
+                <span>最大攻击力:</span>
+                <span id="maxAttack" class="result-value">-</span>
+            </div>
+            
+            <div class="formula" id="formulaDisplay">
+                <strong>📝 当前职业计算公式:</strong><br>
+                <span id="formulaText">最终攻击力 = (力/4+人物攻击力)*(200+智/10)%</span>
+            </div>
+        </div>
+    </div>
+
+    <script src="simulator.js"></script>
+</body>
+</html>

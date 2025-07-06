@@ -1,0 +1,27 @@
+{
+  "name": "mu-point-simulator",
+  "version": "1.0.0",
+  "description": "奇迹MU加点模拟器 - 支持战士和圣导师职业的属性点分配优化工具",
+  "main": "index.html",
+  "scripts": {
+    "start": "serve .",
+    "build": "echo 'Static site, no build needed'",
+    "dev": "serve ."
+  },
+  "keywords": [
+    "奇迹MU",
+    "加点模拟器",
+    "战士",
+    "圣导师",
+    "属性点",
+    "游戏工具"
+  ],
+  "author": "Your Name",
+  "license": "MIT",
+  "devDependencies": {
+    "serve": "^14.0.0"
+  },
+  "engines": {
+    "node": ">=14.0.0"
+  }
+}
