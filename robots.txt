@@ -1,0 +1,19 @@
+User-agent: *
+Allow: /
+
+# Sitemap
+Sitemap: https://mu.bemine.cn/sitemap.xml
+
+# 优化爬取
+Crawl-delay: 1
+
+# 允许的路径
+Allow: /index.html
+Allow: /simulator.js
+Allow: /*.css
+Allow: /*.js
+
+# 禁止的路径
+Disallow: /api/
+Disallow: /.vercel/
+Disallow: /node_modules/

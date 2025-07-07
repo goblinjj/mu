@@ -1,0 +1,26 @@
+{
+  "name": "奇迹MU加点模拟器",
+  "short_name": "MU加点器",
+  "description": "专业的奇迹MU加点模拟器，支持战士和圣导师职业属性点分配优化",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#f7fafc",
+  "theme_color": "#3498db",
+  "orientation": "portrait-primary",
+  "icons": [
+    {
+      "src": "data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 192 192'><rect width='192' height='192' fill='%233498db'/><text x='96' y='130' font-size='100' text-anchor='middle' fill='white'>⚔️</text></svg>",
+      "sizes": "192x192",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 512 512'><rect width='512' height='512' fill='%233498db'/><text x='256' y='350' font-size='280' text-anchor='middle' fill='white'>⚔️</text></svg>",
+      "sizes": "512x512",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    }
+  ],
+  "categories": ["games", "utilities"],
+  "lang": "zh-CN"
+}
